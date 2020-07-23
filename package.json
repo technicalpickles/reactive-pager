@@ -1,0 +1,53 @@
+{
+	"name": "reactive-pager",
+	"version": "0.0.0",
+	"license": "MIT",
+	"bin": "cli.js",
+	"engines": {
+		"node": ">=8"
+	},
+	"scripts": {
+		"script": "node cli.js",
+		"test": "xo && ava"
+	},
+	"files": [
+		"cli.js",
+		"ui.js"
+	],
+	"dependencies": {
+		"@babel/polyfill": "^7.10.4",
+		"import-jsx": "^4.0.0",
+		"ink": "^2.7.1",
+		"meow": "^7.0.1",
+		"prop-types": "^15.7.2",
+		"react": "^16.13.1"
+	},
+	"devDependencies": {
+		"@babel/cli": "^7.10.5",
+		"@babel/core": "^7.10.5",
+		"@babel/node": "^7.10.5",
+		"@babel/preset-env": "^7.10.4",
+		"@babel/preset-react": "^7.10.4",
+		"@babel/register": "^7.10.5",
+		"ava": "^3.10.1",
+		"chalk": "^4.1.0",
+		"eslint-config-xo-react": "^0.23.0",
+		"eslint-plugin-react": "^7.20.3",
+		"eslint-plugin-react-hooks": "^4.0.8",
+		"ink-testing-library": "^2.0.1",
+		"xo": "^0.32.1"
+	},
+	"ava": {
+		"require": [
+			"@babel/register"
+		]
+	},
+	"babel": {
+		"presets": [
+			"@babel/preset-react"
+		]
+	},
+	"xo": {
+		"extends": "xo-react"
+	}
+}
