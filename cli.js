@@ -16,7 +16,7 @@ const cli = meow(`
 `);
 
 
-const path = "/Users/technicalpickles/.gitconfig"
+const path = cli.input[0]
 
 // const enterAltScreenCommand = '\x1b[?1049h';
 // const leaveAltScreenCommand = '\x1b[?1049l';
