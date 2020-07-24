@@ -3,11 +3,13 @@ const {useState, useEffect} = React
 const PropTypes = require('prop-types')
 const {Text, useStdout, useInput} = require('ink')
 
+const DisplayArea = require("./DisplayArea")
+
 const currentDimensions = (stdout) => {
-	return { height: stdout.columns, width: stdout.rows }
+	return { height: stdout.rows, width: stdout.columns }
 }
 
-const App = ({contents}) => {
+const App = ({lines}) => {
 	const {stdout} = useStdout()
 
 	const [dimensions, setDimensions] = useState(currentDimensions(stdout))
@@ -24,16 +26,17 @@ const App = ({contents}) => {
 		}
 	})
 
+	const displayHeight = dimensions.height - 2
 	return (
 		<>
-			<Text>{contents}</Text>
-			<Text>{dimensions.height}x{dimensions.width}</Text>
+			<DisplayArea lines={lines} height={displayHeight}/>
+			<Text>{dimensions.width}x{dimensions.height}</Text>
 		</>
 		)
 }
 
 App.propTypes = {
-	path: PropTypes.string.isRequired,
+	lines: PropTypes.arrayOf(PropTypes.string).isRequired,
 }
 
 App.defaultProps = {

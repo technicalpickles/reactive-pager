@@ -23,8 +23,10 @@ fs.readFile(path, 'utf8', function (err, data) {
     return console.log(err);
   }
 
+	const lines = data.split("\n")
+
 	const props = {
-		contents: data
+		lines: lines
 	}
 
 	const app = React.createElement(App, props)
