@@ -1,21 +1,31 @@
-React = require("react")
-ink = require("ink")
+const React = require("react")
 const PropTypes = require('prop-types');
-const {Text, Color} = require('ink');
+const {Text, useStdout} = require('ink');
 
-App = ({name, dimensions}) => (
-	<>
-	<ink.Text>Hi <ink.Color green>{name}</ink.Color></ink.Text>
-	<ink.Text>{dimensions.height}x{dimensions.width}</ink.Text>
-	</>
-)
+
+const currentDimensions = (stdout) => {
+	return { height: stdout.columns, width: stdout.rows }
+}
+
+const App = (name) => {
+
+	const {stdout} = useStdout()
+
+	const [dimensions, setDimensions] = React.useState(currentDimensions(stdout))
+
+	React.useEffect(() => {
+		stdout.on('resize', () => {
+			setDimensions(currentDimensions(stdout))
+		});
+	})
+
+	return (
+		<Text>{dimensions.height}x{dimensions.width}</Text>
+		)
+}
 
 App.propTypes = {
 	name: PropTypes.string,
-	dimensions: PropTypes.shape({
-		height: PropTypes.number,
-		width: PropTypes.number
-	})
 };
 
 App.defaultProps = {

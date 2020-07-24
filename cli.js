@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+const React = require("react")
 const ink = require("ink")
 const meow = require("meow")
 
@@ -18,9 +19,7 @@ const cli = meow(`
 
 const props = {
 	...cli.flags,
-	dimensions: {
-		height: process.stdout.columns,
-		width: process.stdout.rows
-	}
 }
-ink.render(React.createElement(App, props))
+
+const app = React.createElement(App, props)
+ink.render(app)
