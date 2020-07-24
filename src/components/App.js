@@ -13,6 +13,8 @@ const App = ({lines}) => {
 	const {stdout} = useStdout()
 
 	const [dimensions, setDimensions] = useState(currentDimensions(stdout))
+	const [widthOffset, setWidthOffset] = useState(0)
+	const [heightOffset, setHeightOffset] = useState(0)
 
 	useEffect(() => {
 		stdout.once('resize', () => {
@@ -20,7 +22,16 @@ const App = ({lines}) => {
 		});
 	})
 
+
 	useInput((input, key) => {
+		if (key.downArrow) {
+			setHeightOffset(heightOffset + 1)
+			return
+		} else if (key.upArrow) {
+			setHeightOffset(heightOffset - 1)
+			return
+		}
+
 		if (input === 'q') {
 			process.exit()
 		}
@@ -28,11 +39,14 @@ const App = ({lines}) => {
 
 	const displayHeight = dimensions.height - 2
 	const displayWidth = dimensions.width
-	const widthOffset = 0
 	return (
 		<>
-			<DisplayArea lines={lines} width={displayWidth} widthOffset={widthOffset} height={displayHeight}/>
-			<Text>{dimensions.width}x{dimensions.height}</Text>
+			<DisplayArea lines={lines} width={displayWidth} widthOffset={widthOffset} height={displayHeight} heightOffset={heightOffset}/>
+		<Text bold background="white" color="green">
+			[Terminal: {dimensions.width}x{dimensions.height}]
+			[Lines: {lines.length}]
+			[Offset: {widthOffset}x{heightOffset}]
+		</Text>
 		</>
 		)
 }

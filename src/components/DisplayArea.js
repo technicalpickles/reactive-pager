@@ -2,10 +2,10 @@ const React = require("react")
 
 const Line = require("./Line")
 
-const DisplayArea = ({lines, widthOffset, width, height}) => {
+const DisplayArea = ({lines, widthOffset, heightOffset, width, height}) => {
 
 	const relevantLines = []
-	for (let i = 0; i < height && i < lines.length; i++) {
+	for (let i = heightOffset; i < height && i < lines.length; i++) {
 		let line = lines[i]
 
 		// replace tabs with spaces for counting
@@ -19,8 +19,6 @@ const DisplayArea = ({lines, widthOffset, width, height}) => {
 
 		relevantLines.push(<Line key={i} text={line}/>)
 	}
-
-	console.log(`displaying ${relevantLines.length} lines`)
 
 	return (
 		<>
