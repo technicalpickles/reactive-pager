@@ -18,12 +18,12 @@ const cli = meow(`
 
 const path = "/Users/technicalpickles/.gitconfig"
 
-const enterAltScreenCommand = '\x1b[?1049h';
-const leaveAltScreenCommand = '\x1b[?1049l';
-process.stdout.write(enterAltScreenCommand);
-process.on('exit', () => {
-    process.stdout.write(leaveAltScreenCommand);
-});
+// const enterAltScreenCommand = '\x1b[?1049h';
+// const leaveAltScreenCommand = '\x1b[?1049l';
+// process.stdout.write(enterAltScreenCommand);
+// process.on('exit', () => {
+//     process.stdout.write(leaveAltScreenCommand);
+// });
 
 fs.readFile(path, 'utf8', function (err, data) {
   if (err) {
@@ -33,6 +33,7 @@ fs.readFile(path, 'utf8', function (err, data) {
 	const lines = data.split("\n")
 
 	const props = {
+		path: path,
 		lines: lines
 	}
 

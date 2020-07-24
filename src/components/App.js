@@ -4,12 +4,13 @@ const PropTypes = require('prop-types')
 const {Text, useStdout, useInput} = require('ink')
 
 const DisplayArea = require("./DisplayArea")
+const StatusBar = require("./StatusBar")
 
 const currentDimensions = (stdout) => {
 	return { height: stdout.rows, width: stdout.columns }
 }
 
-const App = ({lines}) => {
+const App = ({path, lines}) => {
 	const {stdout} = useStdout()
 
 	const [dimensions, setDimensions] = useState(currentDimensions(stdout))
@@ -37,16 +38,14 @@ const App = ({lines}) => {
 		}
 	})
 
-	const displayHeight = dimensions.height - 2
+	const displayHeight = dimensions.height - 3
 	const displayWidth = dimensions.width
 	return (
 		<>
+			<Text bold>{path}</Text>
+
 			<DisplayArea lines={lines} width={displayWidth} widthOffset={widthOffset} height={displayHeight} heightOffset={heightOffset}/>
-		<Text bold background="white" color="green">
-			[Terminal: {dimensions.width}x{dimensions.height}]
-			[Lines: {lines.length}]
-			[Offset: {widthOffset}x{heightOffset}]
-		</Text>
+			<StatusBar lines={lines} dimensions={dimensions} heightOffset={heightOffset} widthOffset={widthOffset} />
 		</>
 		)
 }
