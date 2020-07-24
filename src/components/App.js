@@ -27,9 +27,11 @@ const App = ({lines}) => {
 	})
 
 	const displayHeight = dimensions.height - 2
+	const displayWidth = dimensions.width
+	const widthOffset = 0
 	return (
 		<>
-			<DisplayArea lines={lines} height={displayHeight}/>
+			<DisplayArea lines={lines} width={displayWidth} widthOffset={widthOffset} height={displayHeight}/>
 			<Text>{dimensions.width}x{dimensions.height}</Text>
 		</>
 		)
