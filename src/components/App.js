@@ -1,35 +1,42 @@
 const React = require("react")
-const PropTypes = require('prop-types');
-const {Text, useStdout} = require('ink');
-
+const {useState, useEffect} = React
+const PropTypes = require('prop-types')
+const {Text, useStdout, useInput} = require('ink')
 
 const currentDimensions = (stdout) => {
 	return { height: stdout.columns, width: stdout.rows }
 }
 
-const App = (name) => {
-
+const App = ({contents}) => {
 	const {stdout} = useStdout()
 
-	const [dimensions, setDimensions] = React.useState(currentDimensions(stdout))
+	const [dimensions, setDimensions] = useState(currentDimensions(stdout))
 
-	React.useEffect(() => {
-		stdout.on('resize', () => {
+	useEffect(() => {
+		stdout.once('resize', () => {
 			setDimensions(currentDimensions(stdout))
 		});
 	})
 
+	useInput((input, key) => {
+		if (input === 'q') {
+			process.exit()
+		}
+	})
+
 	return (
-		<Text>{dimensions.height}x{dimensions.width}</Text>
+		<>
+			<Text>{contents}</Text>
+			<Text>{dimensions.height}x{dimensions.width}</Text>
+		</>
 		)
 }
 
 App.propTypes = {
-	name: PropTypes.string,
-};
+	path: PropTypes.string.isRequired,
+}
 
 App.defaultProps = {
-	name: 'Stranger'
-};
+}
 
 module.exports = App
