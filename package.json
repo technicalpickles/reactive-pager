@@ -18,7 +18,7 @@
 		"@babel/polyfill": "^7.10.4",
 		"babel-node": "0.0.1-security",
 		"import-jsx": "^4.0.0",
-		"ink": "^2.7.1",
+		"ink": "^3.0.0-7",
 		"keypress": "^0.2.1",
 		"meow": "^7.0.1",
 		"prop-types": "^15.7.2",
