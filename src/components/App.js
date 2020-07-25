@@ -23,14 +23,38 @@ const App = ({path, lines}) => {
 		});
 	})
 
+	const adjustHeightOffset = (newHeightOffset) => {
+		if (newHeightOffset > lines.length) {
+			setHeightOffset(lines.length - 1)
+		} else if (newHeightOffset < 0) {
+			setHeightOffset(0)
+		} else {
+			setHeightOffset(newHeightOffset)
+		}
+	}
+
+
 
 	useInput((input, key) => {
 		if (key.downArrow) {
-			setHeightOffset(heightOffset + 1)
+			adjustHeightOffset(heightOffset + 1)
 			return
-		} else if (key.upArrow) {
-			setHeightOffset(heightOffset - 1)
+		}
+
+		if (key.upArrow) {
+			adjustHeightOffset(heightOffset - 1)
 			return
+		}
+
+		// page down
+		if (input == '\u001b[6~' || input == ' ') {
+			adjustHeightOffset(heightOffset + dimensions.height - 2)
+			return
+		}
+
+		// page up
+		if (input == '\u001b[5~' || input == 'b') {
+			adjustHeightOffset(heightOffset - dimensions.height + 1)
 		}
 
 		if (input === 'q') {
