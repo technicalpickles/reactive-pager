@@ -1,5 +1,5 @@
 const React = require("react")
-const {useState, useEffect} = React
+const {useState, useEffect, useLayoutEffect} = React
 const PropTypes = require('prop-types')
 const {Text, useStdout, useInput} = require('ink')
 
@@ -10,6 +10,9 @@ const currentDimensions = (stdout) => {
 	return { height: stdout.rows, width: stdout.columns }
 }
 
+const enterAltScreenCommand = '\x1b[?1049h';
+const leaveAltScreenCommand = '\x1b[?1049l';
+
 const App = ({path, lines}) => {
 	const {stdout} = useStdout()
 
@@ -17,10 +20,15 @@ const App = ({path, lines}) => {
 	const [widthOffset, setWidthOffset] = useState(0)
 	const [heightOffset, setHeightOffset] = useState(0)
 
+	useLayoutEffect(() => {
+		// stdout.write(enterAltScreenCommand)
+	})
+
 	useEffect(() => {
 		stdout.once('resize', () => {
 			setDimensions(currentDimensions(stdout))
 		});
+
 	})
 
 	const adjustHeightOffset = (newHeightOffset) => {

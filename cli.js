@@ -18,12 +18,13 @@ const cli = meow(`
 
 const path = cli.input[0]
 
-// const enterAltScreenCommand = '\x1b[?1049h';
-// const leaveAltScreenCommand = '\x1b[?1049l';
-// process.stdout.write(enterAltScreenCommand);
-// process.on('exit', () => {
-//     process.stdout.write(leaveAltScreenCommand);
-// });
+// FIXME duped in app.js
+const enterAltScreenCommand = '\x1b[?1049h';
+const leaveAltScreenCommand = '\x1b[?1049l';
+process.stdout.write(enterAltScreenCommand);
+process.on('exit', () => {
+    process.stdout.write(leaveAltScreenCommand);
+});
 
 fs.readFile(path, 'utf8', function (err, data) {
   if (err) {
