@@ -32,16 +32,14 @@ const App = ({path, lines}) => {
 	})
 
 	const adjustHeightOffset = (newHeightOffset) => {
-		if (newHeightOffset > lines.length) {
-			setHeightOffset(lines.length - 1)
-		} else if (newHeightOffset < 0) {
+		if (newHeightOffset > lines.length - dimensions.height) { // prevent going to far down
+			setHeightOffset(lines.length - dimensions.height)
+		} else if (newHeightOffset < 0) { // prevent going too far back
 			setHeightOffset(0)
-		} else {
+		} else { // adjust as normal
 			setHeightOffset(newHeightOffset)
 		}
 	}
-
-
 
 	useInput((input, key) => {
 		if (key.downArrow) {
