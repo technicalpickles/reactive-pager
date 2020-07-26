@@ -33,10 +33,17 @@
 		"@babel/register": "^7.10.5",
 		"ava": "^3.10.1",
 		"chalk": "^4.1.0",
+		"eslint": "^7.5.0",
+		"eslint-config-standard": "^14.1.1",
 		"eslint-config-xo-react": "^0.23.0",
+		"eslint-plugin-import": "^2.22.0",
+		"eslint-plugin-node": "^11.1.0",
+		"eslint-plugin-promise": "^4.2.1",
 		"eslint-plugin-react": "^7.20.3",
 		"eslint-plugin-react-hooks": "^4.0.8",
+		"eslint-plugin-standard": "^4.0.1",
 		"ink-testing-library": "^2.0.1",
+		"standard": "^14.3.4",
 		"xo": "^0.32.1"
 	},
 	"ava": {
