@@ -1,4 +1,5 @@
 const React = require('react')
+const PropTypes = require('prop-types')
 
 const Line = require('./Line')
 
@@ -25,6 +26,14 @@ const DisplayArea = ({ lines, widthOffset, heightOffset, width, height }) => {
       {relevantLines}
     </>
   )
+}
+
+DisplayArea.propTypes = {
+  lines: PropTypes.arrayOf(PropTypes.string).isRequired,
+  width: PropTypes.number.isRequired,
+  height: PropTypes.number.isRequired,
+  widthOffset: PropTypes.number.isRequired,
+  heightOffset: PropTypes.number.isRequired
 }
 
 module.exports = DisplayArea
