@@ -3,19 +3,18 @@ const PropTypes = require('prop-types')
 const { Text } = require('ink')
 
 const Line = ({ width, widthOffset, text }) => {
+  // return early for empty lines
+  if (text === '') {
+    return <Text> </Text> // note, we need to make this non-empty to make sure it renders
+  }
+
   // replace tabs with spaces for counting
   // TODO is there a ink way of doing this?
   text = text.replace('\t', '        ')
 
+  // trim beginning
   // truncate after terminal width
-  if (text.length > width) {
-    text = text.substring(widthOffset, width)
-  }
-
-  // need to force this to not be falsy
-  if (text === '') {
-    text = ' '
-  }
+  text = text.substring(widthOffset, width)
 
   return <Text>{text}</Text>
 }
