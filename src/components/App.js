@@ -10,8 +10,8 @@ const currentDimensions = (stdout) => {
 	return { height: stdout.rows, width: stdout.columns }
 }
 
-const enterAltScreenCommand = '\x1b[?1049h';
-const leaveAltScreenCommand = '\x1b[?1049l';
+// const enterAltScreenCommand = '\x1b[?1049h';
+// const leaveAltScreenCommand = '\x1b[?1049l';
 
 const App = ({path, lines}) => {
 	const {stdout} = useStdout()
@@ -73,7 +73,6 @@ const App = ({path, lines}) => {
 	return (
 		<>
 			<Text bold>{path}</Text>
-
 			<DisplayArea lines={lines} width={displayWidth} widthOffset={widthOffset} height={displayHeight} heightOffset={heightOffset}/>
 			<StatusBar lines={lines} dimensions={dimensions} heightOffset={heightOffset} widthOffset={widthOffset} />
 		</>
