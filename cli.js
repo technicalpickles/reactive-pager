@@ -3,6 +3,7 @@ const React = require('react')
 const ink = require('ink')
 const meow = require('meow')
 const fs = require('fs')
+const readline = require('readline')
 
 const App = require('./src/components/App')
 
@@ -25,13 +26,18 @@ process.on('exit', () => {
   process.stdout.write(leaveAltScreenCommand)
 })
 
-fs.readFile(path, 'utf8', function (err, data) {
-  if (err) {
-    return console.log(err)
-  }
+const stream = fs.createReadStream(path)
+const rl = readline.createInterface({
+  input: stream,
+  terminal: false
+})
 
-  const lines = data.split('\n')
+const lines = []
+rl.on('line', (line) => {
+  lines.push(line)
+})
 
+rl.on('close', () => {
   const props = {
     path: path,
     lines: lines
