@@ -32,10 +32,10 @@ const App = ({ path, stream }) => {
   }, [])
 
   useEffect(() => {
-    stdout.once('resize', () => {
+    stdout.on('resize', () => {
       setDimensions(currentDimensions(stdout))
     })
-  })
+  }, [])
 
   const adjustHeightOffset = (newHeightOffset) => {
     if (newHeightOffset > lines.length - dimensions.height) { // prevent going to far down
