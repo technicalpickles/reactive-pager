@@ -18,7 +18,6 @@ StatusBar.propTypes = {
     height: PropTypes.number.isRequired
   }).isRequired,
   heightOffset: PropTypes.number.isRequired,
-  height: PropTypes.number.isRequired,
   lines: PropTypes.arrayOf(PropTypes.string).isRequired,
   widthOffset: PropTypes.number.isRequired
 }

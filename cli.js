@@ -3,7 +3,7 @@ const React = require('react')
 const ink = require('ink')
 const meow = require('meow')
 const fs = require('fs')
-const readline = require('readline')
+const tty = require('tty')
 
 const App = require('./src/components/App')
 
@@ -19,30 +19,27 @@ const cli = meow(`
 const path = cli.input[0]
 
 // FIXME duped in app.js
-const enterAltScreenCommand = '\x1b[?1049h'
-const leaveAltScreenCommand = '\x1b[?1049l'
-process.stdout.write(enterAltScreenCommand)
-process.on('exit', () => {
-  process.stdout.write(leaveAltScreenCommand)
-})
+// const enterAltScreenCommand = '\x1b[?1049h'
+// const leaveAltScreenCommand = '\x1b[?1049l'
+// process.stdout.write(enterAltScreenCommand)
+// process.on('exit', () => {
+//   process.stdout.write(leaveAltScreenCommand)
+// })
 
-const stream = fs.createReadStream(path)
-const rl = readline.createInterface({
-  input: stream,
-  terminal: false
-})
+let stream
+if (path === '-' || !process.stdin.isTTY) {
+  stream = process.stdin
+  process.stdin = new tty.ReadStream(fs.openSync('/dev/tty', 'r'))
+  console.log(require('util').inspect(process.stdin))
+  process.stdin.setRawMode(true)
+} else {
+  stream = fs.createReadStream(path)
+}
 
-const lines = []
-rl.on('line', (line) => {
-  lines.push(line)
-})
+const props = {
+  path: path,
+  stream: stream
+}
 
-rl.on('close', () => {
-  const props = {
-    path: path,
-    lines: lines
-  }
-
-  const app = React.createElement(App, props)
-  ink.render(app)
-})
+const app = React.createElement(App, props)
+ink.render(app)

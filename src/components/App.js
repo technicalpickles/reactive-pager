@@ -1,7 +1,8 @@
 const React = require('react')
-const { useState, useEffect, useLayoutEffect } = React
+const { useState, useEffect } = React
 const PropTypes = require('prop-types')
 const { Text, useStdout, useInput } = require('ink')
+const readline = require('readline')
 
 const DisplayArea = require('./DisplayArea')
 const StatusBar = require('./StatusBar')
@@ -13,16 +14,22 @@ const currentDimensions = (stdout) => {
 // const enterAltScreenCommand = '\x1b[?1049h';
 // const leaveAltScreenCommand = '\x1b[?1049l';
 
-const App = ({ path, lines }) => {
+const App = ({ path, stream }) => {
   const { stdout } = useStdout()
+  const [lines, setLines] = useState([])
 
   const [dimensions, setDimensions] = useState(currentDimensions(stdout))
   const [widthOffset, setWidthOffset] = useState(0)
   const [heightOffset, setHeightOffset] = useState(0)
 
-  useLayoutEffect(() => {
-    // stdout.write(enterAltScreenCommand)
-  })
+  useEffect(() => {
+    const rl = readline.createInterface({
+      input: stream,
+      terminal: false
+    })
+
+    rl.on('line', (line) => setLines(l => [...l, line]))
+  }, [])
 
   useEffect(() => {
     stdout.once('resize', () => {
@@ -89,7 +96,7 @@ const App = ({ path, lines }) => {
 }
 
 App.propTypes = {
-  lines: PropTypes.arrayOf(PropTypes.string).isRequired,
+  stream: PropTypes.object.isRequired,
   path: PropTypes.string.isRequired
 }
 
