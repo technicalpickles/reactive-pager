@@ -22,6 +22,7 @@ const App = ({ path, stream }) => {
   const [widthOffset, setWidthOffset] = useState(0)
   const [heightOffset, setHeightOffset] = useState(0)
 
+  // read stream line by line. make sure callbacks setup only once
   useEffect(() => {
     const rl = readline.createInterface({
       input: stream,
@@ -31,6 +32,7 @@ const App = ({ path, stream }) => {
     rl.on('line', (line) => setLines(l => [...l, line]))
   }, [])
 
+  // setup callbacks for resizes. make sure to only call once
   useEffect(() => {
     stdout.on('resize', () => {
       setDimensions(currentDimensions(stdout))

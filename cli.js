@@ -16,7 +16,7 @@ const cli = meow(`
     Hello, Jane
 `)
 
-const path = cli.input[0]
+let path = cli.input[0]
 
 // FIXME duped in app.js
 // const enterAltScreenCommand = '\x1b[?1049h'
@@ -26,14 +26,14 @@ const path = cli.input[0]
 //   process.stdout.write(leaveAltScreenCommand)
 // })
 
-let stream
+let stream, stdin
 if (path === '-' || !process.stdin.isTTY) {
   stream = process.stdin
-  process.stdin = new tty.ReadStream(fs.openSync('/dev/tty', 'r'))
-  console.log(require('util').inspect(process.stdin))
-  process.stdin.setRawMode(true)
+  stdin = new tty.ReadStream(fs.openSync('/dev/tty', 'r+'))
+  path = 'stdin'
 } else {
   stream = fs.createReadStream(path)
+  stdin = process.stdin
 }
 
 const props = {
@@ -42,4 +42,6 @@ const props = {
 }
 
 const app = React.createElement(App, props)
-ink.render(app)
+ink.render(app, {
+  stdin: stdin || process.stdin
+})
