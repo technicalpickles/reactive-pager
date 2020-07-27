@@ -52,13 +52,13 @@ const App = ({ path, lines }) => {
     }
 
     // page down
-    if (input === '\u001b[6~' || input === ' ') {
+    if (key.pageDown || input === ' ') {
       adjustHeightOffset(heightOffset + dimensions.height - 2)
       return
     }
 
     // page up
-    if (input === '\u001b[5~' || input === 'b') {
+    if (key.pageUp || input === 'b') {
       adjustHeightOffset(heightOffset - dimensions.height + 1)
     }
 
