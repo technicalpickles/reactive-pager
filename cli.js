@@ -10,9 +10,13 @@ const App = require('./src/components/App')
 const cli = meow(`
   Usage
     $ reactive-pager <path>
+    $ <cmd> | reactive-pager
+    $ <cmd> | reactive-pager -
 
   Examples
     $ reactive-pager foo.txt
+    Hello, Jane
+    $ cat foo.txt | reactive-pager
     Hello, Jane
 `)
 
