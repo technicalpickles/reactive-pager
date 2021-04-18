@@ -1,0 +1,4 @@
+- support checkpoints in script, display them in a split view
+- collapsable sections
+  - how to navigate? need a current position, and way to navigate
+- scrollbar progress
